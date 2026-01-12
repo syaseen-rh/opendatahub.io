@@ -1,0 +1,23 @@
+:_module-type: REFERENCE
+
+[id="ref-example-distributed-inference_{context}"]
+= Example usage for {llmd}
+
+[role='_abstract']
+These examples show how to use {llmd} in common scenarios.
+
+== Single-node GPU deployment
+
+Use single-GPU-per-replica deployment patterns for development, testing, or production deployments of smaller models, such as 7-billion-parameter models.
+
+For examples using single-node GPU deployments, see link:https://github.com/red-hat-data-services/kserve/blob/main/docs/samples/llmisvc/single-node-gpu/README.md[Single-Node GPU Deployment Examples]. 
+
+== Multi-node deployment
+
+For examples using multi-node deployments, see link:https://github.com/red-hat-data-services/kserve/blob/main/docs/samples/llmisvc/dp-ep/deepseek-r1-gpu-rdma-roce/README.md[DeepSeek-R1 Multi-Node Deployment Examples].
+
+== Intelligent inference scheduler with KV cache routing
+
+You can configure the scheduler to track key-value (KV) cache blocks across inference endpoints and route requests to the endpoint with the highest cache hit rate. This configuration improves throughput and reduces latency by maximizing cache reuse.
+
+For an example, see link:https://github.com/red-hat-data-services/kserve/blob/main/docs/samples/llmisvc/precise-prefix-kv-cache-routing/README.md[Precise Prefix KV Cache Routing].

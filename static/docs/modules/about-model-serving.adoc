@@ -1,0 +1,49 @@
+:_module-type: CONCEPT
+
+[id="about-model-serving_{context}"]
+= About model serving
+
+[role="_abstract"]
+When you serve a model, you upload a trained model into {productname-long} for querying, which allows you to integrate your trained models into intelligent applications.
+
+You can upload a model to an S3-compatible object storage, persistent volume claim, or Open Container Initiative (OCI) image. You can then access and train the model from your project workbench. After training the model, you can serve or deploy the model using a model-serving platform.
+
+Serving or deploying the model makes the model available as a service, or model runtime server, that you can access using an API. You can then access the inference endpoints for the deployed model from the dashboard and see predictions based on data inputs that you provide through API calls. Querying the model through the API is also called model inferencing.
+
+You can also serve models on the NVIDIA NIM model serving platform. The model-serving platform that you choose depends on your business needs:
+
+* If you want to deploy each model on its own runtime server, select the *Model serving platform*. The model serving platform is recommended for production use.
+* If you want to use NVIDIA Inference Microservices (NIMs) to deploy a model, select the *NVIDIA NIM-model serving platform*.
+
+== Model serving platform
+You can deploy each model from a dedicated model server, which can help you deploy, monitor, scale, and maintain models that require increased resources. Based on the link:https://github.com/kserve/kserve[KServe^] component, this model serving platform is ideal for serving large models.
+
+The model serving platform is helpful for use cases such as:
+
+* Large language models (LLMs)
+* Generative AI
+
+ifndef::upstream[]
+For more information about setting up the model serving platform, see link:{rhoaidocshome}{default-format-url}/installing_and_uninstalling_{url-productname-short}/installing-the-model-serving-platform_component-install[Installing the model serving platform].
+endif::[]
+
+== NVIDIA NIM model serving platform
+
+You can deploy models using NVIDIA Inference Microservices (NIM) on the NVIDIA NIM model serving platform.
+
+NVIDIA NIM, part of NVIDIA AI Enterprise, is a set of microservices designed for secure, reliable deployment of high performance AI model inferencing across clouds, data centers and workstations.
+
+NVIDIA NIM inference services are helpful for use cases such as:
+
+* Using GPU-accelerated containers inferencing models optimized by NVIDIA
+* Deploying generative AI for virtual screening, content generation, and avatar creation
+
+ifndef::upstream[]
+The NVIDIA NIM model serving platform is based on the model serving platform. To use the NVIDIA NIM model serving platform, you must first install the model serving platform.
+
+For more information, see link:{rhoaidocshome}{default-format-url}/installing_and_uninstalling_{url-productname-short}/installing-the-model-serving-platform_component-install[Installing the model serving platform].
+endif::[]
+
+
+// [role="_additional-resources"]
+// .Additional resources

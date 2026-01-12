@@ -1,0 +1,25 @@
+:_module-type: CONCEPT
+
+[id='working-with-hardware-profiles_{context}']
+= Working with hardware profiles
+
+[role='_abstract']
+
+In {productname-long}, you can use *hardware profiles* to manage and allocate specific hardware resources, such as hardware accelerators, specialized memory, or CPU-only nodes for data science, machine learning, and generative AI workloads. 
+
+Hardware profiles are custom resources (CRs) for targeted scheduling that allow you to specify the exact resources you need for workloads such as workbenches and model serving. You can create your hardware profile in {productname-short} to specify a particular hardware configuration by going to *Settings* -> *Hardware profiles* on the {productname-short} dashboard.
+
+These profiles offer fine-grained control over resource allocation by defining specifications that include:
+
+* Hardware identifiers
+* Explicit resource limits (such as CPU, memory, and accelerators)
+* Tolerations
+* Node selectors
+
+To get started, contact your cluster administrator to identify the available hardware resources in your cluster. 
+
+[role="_additional-resources"]
+.Additional resources
+* link:https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#toleration-v1-core[Toleration v1 core]
+* link:https://docs.redhat.com/en/documentation/openshift_container_platform/{ocp-latest-version}/html/nodes/controlling-pod-placement-onto-nodes-scheduling#nodes-scheduler-taints-tolerations-about_nodes-scheduler-taints-tolerations[Understanding taints and tolerations]
+* link:https://docs.redhat.com/en/documentation/openshift_container_platform/{ocp-latest-version}/html/operators/understanding-operators#crd-managing-resources-from-crds[Managing resources from custom resource definitions]

@@ -1,0 +1,105 @@
+:_module-type: PROCEDURE
+
+[id="configuring-inference-service-for-spyre_{context}"]
+= Configuring an inference service for Spyre
+
+ifndef::upstream[]
+[IMPORTANT]
+====
+ifdef::self-managed[]
+Support for IBM Spyre AI Accelerators on x86 is currently available in {productname-long} {vernum} as a Technology Preview feature.
+endif::[]
+ifdef::cloud-service[]
+Support for IBM Spyre AI Accelerators on x86 is currently available in {productname-long} as a Technology Preview feature.
+endif::[]
+Technology Preview features are not supported with {org-name} production service level agreements (SLAs) and might not be functionally complete.
+{org-name} does not recommend using them in production.
+These features provide early access to upcoming product features, enabling customers to test functionality and provide feedback during the development process.
+
+For more information about the support scope of {org-name} Technology Preview features, see link:https://access.redhat.com/support/offerings/techpreview/[Technology Preview Features Support Scope].
+====
+endif::[]
+
+[role="_abstract"]
+If you are deploying a model using a hardware profile that relies on Spyre schedulers, you must manually edit the `InferenceService` YAML after deployment to add the required scheduler name and tolerations. This step is necessary because the user interface does not currently provide an option to specify a custom scheduler.
+
+.Prerequisites
+
+* You have read the link:https://www.ibm.com/docs/en/rhocp-ibm-z?topic=spyre-operator-z-linuxone[Spyre Operator for IBM Z] documentation.
+* You have deployed a model on {openshift-platform} by using vLLM ServingRuntime:
+** For X86 deployments, you have used the **vLLM Spyre AI Accelerator ServingRuntime for KServe** runtime.
+** For IBM Z (s390x) deployments, you have used the **vLLM Spyre s390x ServingRuntime for KServe** runtime.
+* You have privileges to edit resources in the project where the model is deployed.
+
+.Procedure
+To configure the inference service, complete the following steps:
+
+. Log in to the {openshift-platform} console.
+. From the perspective dropdown menu, select **Administrator**. 
+. From the **Project** dropdown menu, select the project where your model is deployed. 
+. Navigate to **Home** > **Search**. 
+. From the **Resources** dropdown menu, select `InferenceService`. 
+. Click the name of the `InferenceService` resource associated with your model. 
+. Select the **YAML** tab.
++ 
+[IMPORTANT]
+====
+If you are deploying to IBM Z (s390x) note the following platform-specific requirements:
+
+* IBM Z only supports continuous batching for this runtime. Ensure that you add the following runtime arguments in the `args` section: 
+** `--max_model_len`
+** `--max-num-seqs=4`
+** `--tensor-parallel-size`.
+* The toleration key differs for the following platforms:
+** For x86 nodes, use the toleration key `ibm.com/spyre_pf`.
+** For IBM Z (s390x), only Virtual Function (VF) mode is supported for IBM Spyre devices. Therefore, use the VF toleration key for IBM Z: `ibm.com/spyre_vf`.
+
+====
+. Edit the `spec.predictor` section to add the `schedulerName` and `tolerations` fields as shown in the following examples:
++
+** Example YAML code for the vLLM IBM Spyre AI Accelerator ServingRuntime on x86 platforms:
++
+[source,yaml]
+----
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService 
+spec:  
+  predictor:
+    schedulerName: spyre-scheduler
+    tolerations: 
+    - effect: NoSchedule 
+      key: ibm.com/spyre_pf 
+      operator: Exists
+----
+
+** Example YAML code for the vLLM IBM Spyre s390x ServingRuntime on IBM Z s390x platforms:
++
+[source,yaml]
+----
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+spec:
+  predictor:
+    # Continuous batching arguments required for IBM Z
+    containers:
+    - name: kserve-container
+      args:
+      - "--max_model_len=2048"
+      - "--max-num-seqs=4"
+      - "--tensor-parallel-size=1"
+      # other container args and image config as required
+    schedulerName: spyre-scheduler
+    tolerations:
+    - effect: NoSchedule
+      key: ibm.com/spyre_vf
+      operator: Exists
+----
+. Click **Save**.
+
+.Verification
+
+After you save the YAML, the existing pod for the model is terminated and a new pod is created.
+
+. Navigate to **Workloads** > **Pods**.
+. Click the new pod for your model to view its details.
+. On the **Details** page, verify that the pod is running on a Spyre node by checking the **Node** information.

@@ -1,0 +1,26 @@
+:_module-type: PROCEDURE
+
+[id="deploying-models-using-distributed-inference_{context}"]
+= Deploying models by using {llmd}
+
+[role='_abstract']
+
+{llmd} is a Kubernetes-native, open-source framework designed for serving large language models (LLMs) at scale. You can use {llmd} to simplify the deployment of generative AI, focusing on high performance and cost-effectiveness across various hardware accelerators.
+
+Key features of {llmd} include:
+
+* Efficiently handles large models using optimizations such as prefix-cache aware routing and disaggregated serving.
+* Integrates into a standard Kubernetes environment, where it leverages specialized components like the Envoy proxy to handle networking and routing, and high-performance libraries such as vLLM and NVIDIA Inference Transfer Library (NIXL).
+* Tested recipes and well-known presets reduce the complexity of deploying inference at scale, so users can focus on building applications rather than managing infrastructure.
+
+Serving models using {llmd} on {productname-long} consists of the following steps:
+
+. Installing {productname-short}.
+. Enabling the model serving platform.
+. Configuring authentication with {org-name} Connectivity Link.
+. Enabling {llmd} on a Kubernetes cluster.
+. Creating an LLMInferenceService Custom Resource (CR).
+. Deploying a model.
+
+include::configuring-authentication-for-llmd.adoc[leveloffset=+1]
+include::enabling-distributed-inference.adoc[leveloffset=+1]

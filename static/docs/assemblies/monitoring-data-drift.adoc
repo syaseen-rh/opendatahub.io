@@ -1,0 +1,39 @@
+:_module-type: ASSEMBLY
+
+ifdef::context[:parent-context: {context}]
+
+:context: drift-monitoring
+
+[id="monitoring-data-drift_{context}"]
+= Monitoring data drift
+
+[role='_abstract']
+
+Data drift refers to changes that occur in the distribution of incoming data that differ significantly from the data on which the model was originally trained. This distributional shift can cause model performance to become unreliable, because machine learning models rely heavily on the patterns in their training data.
+
+Detecting data drift helps ensure that your models continue to perform as expected and that they remain accurate and reliable. Trusty AI measures the statistical alignment between a model's training data and its incoming inference data using specialized metrics.
+
+Metrics for drift detection include:          
+
+* Mean-Shift
+
+* FourierMMD
+
+* Kolmogorov-Smirnov
+
+* ApproxKSTest
+
+
+
+include::modules/creating-a-drift-metric.adoc[leveloffset=+1]
+
+include::modules/deleting-a-drift-metric-by-using-cli.adoc[leveloffset=+1]
+
+include::modules/viewing-drift-metrics.adoc[leveloffset=+1]
+
+include::modules/using-drift-metrics.adoc[leveloffset=+1]
+
+include::modules/using-a-drift-metric-in-a-credit-card-scenario.adoc[leveloffset=+1]
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

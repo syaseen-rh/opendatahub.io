@@ -1,0 +1,55 @@
+:_module-type: ASSEMBLY
+
+ifdef::context[:parent-context: {context}]
+
+:context: odh-user
+
+[id="deploying-models_{context}"]
+
+= Storing models
+
+You must store your model before you can deploy it. You can store a model in an S3 bucket, URI or Open Container Initiative (OCI) containers.
+
+include::modules/using-oci-containers-for-model-storage.adoc[leveloffset=+1]
+include::modules/storing-a-model-in-oci-image.adoc[leveloffset=+1]
+include::modules/uploading-model-files-to-pvc.adoc[leveloffset=+1]
+	
+= Deploying models
+
+The model serving platform is based on the KServe component and deploys each model from its own dedicated model server. This architecture is ideal for deploying, monitoring, scaling, and maintaining large models that require more resources, such as large language models (LLMs).
+
+include::modules/deploying-models-on-the-model-serving-platform.adoc[leveloffset=+1] 
+include::modules/deploying-model-stored-in-oci-image-cli.adoc[leveloffset=+1]
+include::modules/deploying-models-using-distributed-inference.adoc[leveloffset=+1]
+include::modules/ref-example-distributed-inference.adoc[leveloffset=+2]
+include::modules/configuring-authentication-for-llmd.adoc[leveloffset=+2]
+
+== Monitoring models
+You can monitor models that are deployed on the model serving platform to view performance and resource usage metrics. 
+
+include::modules/viewing-performance-metrics-for-deployed-model.adoc[leveloffset=+2]
+include::modules/viewing-metrics-for-the-model-serving-platform.adoc[leveloffset=+2]
+
+= Deploying models on the NVIDIA NIM model serving platform
+You can deploy models using NVIDIA NIM inference services on the NVIDIA NIM model serving platform.
+
+NVIDIA NIM, part of NVIDIA AI Enterprise, is a set of microservices designed for secure, reliable deployment of high performance AI model inferencing across clouds, data centers and workstations.
+
+include::modules/deploying-models-on-the-NVIDIA-NIM-model-serving-platform.adoc[leveloffset=+1]
+include::modules/viewing-nvidia-nim-metrics-for-a-nim-model.adoc[leveloffset=+1]
+include::modules/viewing-performance-metrics-for-a-nim-model.adoc[leveloffset=+1]
+
+= Making inference requests to deployed models
+
+When you deploy a model, it is available as a service that you can access with API requests. This allows you to get predictions from your model based on the data you provide in the request.
+
+include::modules/accessing-authentication-token-for-deployed-model.adoc[leveloffset=+1]
+include::modules/accessing-inference-endpoint-for-model.adoc[leveloffset=+1]
+include::modules/making-inference-requests-to-models-deployed-on-model-server.adoc[leveloffset=+1]
+include::modules/ref-inference-endpoints.adoc[leveloffset=+1]
+
+// [role='_additional-resources']
+// == Additional resources
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
